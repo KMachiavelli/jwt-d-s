@@ -1,25 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import logo from "./logo.svg";
+import "./AppStyles.ts";
+import { InnerContent, StyledApp } from "./AppStyles";
+import LoginForm from "./components/loginForm/LoginForm";
+import { AppBar } from "@mui/material";
+import AppRoutes from "./routing/AppRoutes";
+import { UserProvider, useUserContext } from "./context/UserContext";
+import { useNavigate } from "react-router-dom";
+import { initializeInterceptor } from "./helpers/interceptor";
 
 function App() {
+  const { logoutUser } = useUserContext();
+  initializeInterceptor(logoutUser);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <StyledApp>
+      <AppBar position="fixed" sx={{ padding: "16px", fontSize: "20px" }}>
+        <strong>JSON Web Token</strong>
+      </AppBar>
+      <InnerContent>
+        <AppRoutes />
+      </InnerContent>
+    </StyledApp>
   );
 }
 
