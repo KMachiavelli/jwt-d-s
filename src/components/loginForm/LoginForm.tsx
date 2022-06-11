@@ -19,8 +19,6 @@ const LoginForm = ({ justRegistered }: LoginFormI) => {
   const [passwordForm, setPasswordForm] = useState("");
   const { loginUser } = useUserContext();
   const [rejectedLogin, setRejectedLogin] = useState(false);
-  const { username } = useUserContext();
-  const urlDupa = "http://localhost:8000/api/dupa";
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -86,34 +84,21 @@ const LoginForm = ({ justRegistered }: LoginFormI) => {
         <Button variant="text" component={Link} to="/register">
           REGISTER
         </Button>
+        <Button
+          variant="contained"
+          onClick={() => {
+            loginUser(usernameForm, passwordForm).then(
+              () => {},
+              () => {
+                setRejectedLogin(true);
+                console.debug("Wrong passes");
+              }
+            );
+          }}
+        >
+          LOG IN
+        </Button>
       </StyledLoginForm>
-      <Button
-        variant="contained"
-        onClick={() => {
-          //   fetch(urlDupa, {
-          //     method: "POST",
-          //     // headers: {
-          //     //   "Content-Type": "application/json",
-          //     // },
-          //     credentials: "include",
-          //     body: JSON.stringify({
-          //       username: usernameForm,
-          //       password: passwordForm,
-          //     }),
-          //   }).catch((e) => alert("WYJEBALO SIE " + e));
-          // }
-          loginUser(usernameForm, passwordForm).then(
-            () => {},
-            () => {
-              setRejectedLogin(true);
-              console.debug("Wrong passes");
-            }
-          );
-        }}
-      >
-        LOG IN
-      </Button>
-      <TestButton />
       <RejectedTile isRejected={rejectedLogin}>
         Wrong login or password
       </RejectedTile>

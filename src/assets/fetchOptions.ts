@@ -26,12 +26,12 @@ const loginOptions = (body: any) => ({
 
 const authByTokenOptions = () => ({
   ...GETReq,
-  credentials: "same-origin" as RequestCredentials, // same-origin/include
+  credentials: "include" as RequestCredentials, // same-origin/include
 });
 
 const requestDataOptions = () => ({
   ...GETReq,
-  credentials: "same-origin" as RequestCredentials, // same-origin/include
+  credentials: "include" as RequestCredentials, // same-origin/include
 });
 
 export const apiOpt = {

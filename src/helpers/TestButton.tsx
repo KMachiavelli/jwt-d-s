@@ -3,17 +3,9 @@ import ReactDOM from "react-dom";
 
 const urlPostman =
   "https://bdfb4956-5798-4e93-bed9-6f1e7b0b3d6a.mock.pstmn.io/token";
-const urlDupa = "http://localhost:8000/api/dupa";
+const urlddd = "http://localhost:8000/api/ddd";
 
 const TestButton = () => {
-  // useEffect(() => {
-  //   fetch(urlPostman, {
-  //     // fetch("http://25.39.117.207:8000/api/dupa", {
-  //       method: "GET",
-  //       // credentials: "include",
-  //   })
-  // }, [])
-
   return (
     <>
       {" "}
@@ -37,7 +29,7 @@ const TestButton = () => {
       </button>
       <button
         onClick={() => {
-          fetch(urlDupa, {
+          fetch(urlddd, {
             method: "GET",
             credentials: "include",
           }).catch((e) => alert("WYJEBALO SIE " + e));
@@ -50,7 +42,7 @@ const TestButton = () => {
           cursor: "pointer",
         }}
       >
-        DUPA
+        XXX
       </button>
       <button
         onClick={() => {
