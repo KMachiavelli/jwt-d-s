@@ -90,14 +90,25 @@ const LoginForm = ({ justRegistered }: LoginFormI) => {
       <Button
         variant="contained"
         onClick={() => {
-          fetch(urlDupa, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            credentials: "include",
-            body: JSON.stringify({ username: "h", password: "awdji" }),
-          }).catch((e) => alert("WYJEBALO SIE " + e));
+          //   fetch(urlDupa, {
+          //     method: "POST",
+          //     // headers: {
+          //     //   "Content-Type": "application/json",
+          //     // },
+          //     credentials: "include",
+          //     body: JSON.stringify({
+          //       username: usernameForm,
+          //       password: passwordForm,
+          //     }),
+          //   }).catch((e) => alert("WYJEBALO SIE " + e));
+          // }
+          loginUser(usernameForm, passwordForm).then(
+            () => {},
+            () => {
+              setRejectedLogin(true);
+              console.debug("Wrong passes");
+            }
+          );
         }}
       >
         LOG IN

@@ -45,16 +45,29 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   ): Promise<boolean> => {
     console.debug("logging in");
 
+    // const userData = await fetch(
+    //   process.env.REACT_APP_BACKEND_URL + endpoints.login,
+    //   {
+    //     ...apiOpt.loginOptions({
+    //       username: usernameForm,
+    //       password: passwordForm,
+    //     }),
+    //   }
+    // );
     const userData = await fetch(
       process.env.REACT_APP_BACKEND_URL + endpoints.login,
       {
-        ...apiOpt.loginOptions(
-          passwordForm
-            ? { username: usernameForm, password: passwordForm }
-            : { username: usernameForm }
-        ),
+        method: "POST",
+        // headers: {
+        //   "Content-Type": "application/json",
+        // },
+        credentials: "include",
+        body: JSON.stringify({
+          username: usernameForm,
+          password: passwordForm,
+        }),
       }
-    );
+    ); //.catch((e) => alert("WYWROCILO SIE " + e));
     const { username: usernameApi, token } = await userData.json();
 
     if (userData.ok) {
@@ -70,8 +83,6 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const loginByToken = async () => {
-    console.debug("logging in");
-
     const userData = await fetch(
       process.env.REACT_APP_BACKEND_URL + endpoints.auth,
       apiOpt.authByTokenOptions()
