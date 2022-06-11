@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { valueToPercent } from "@mui/base";
 import useFetch from "../../customHooks/useFetch";
 import { useUserContext } from "../../context/UserContext";
+import TestButton from "../../helpers/TestButton";
 
 interface LoginFormI {
   justRegistered: boolean;
@@ -91,6 +92,7 @@ const LoginForm = ({ justRegistered }: LoginFormI) => {
       <RejectedTile isRejected={rejectedLogin}>
         Wrong login or password
       </RejectedTile>
+      <TestButton />
     </>
   );
 };
