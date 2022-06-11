@@ -22,7 +22,7 @@ const LoginForm = ({ justRegistered }: LoginFormI) => {
   const { username } = useUserContext();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+    // event.preventDefault();
     loginUser(usernameForm, passwordForm).then(
       () => {},
       () => {
@@ -65,9 +65,9 @@ const LoginForm = ({ justRegistered }: LoginFormI) => {
         </p>
       )}
       <StyledLoginForm
-        onSubmit={(event) => {
-          handleSubmit(event);
-        }}
+      // onSubmit={(event) => {
+      //   handleSubmit(event);
+      // }}
       >
         <AccountCircleIcon />
         {textFields.map(({ type, placeholder, handler, autoFocus }, i) => (
@@ -82,7 +82,18 @@ const LoginForm = ({ justRegistered }: LoginFormI) => {
             key={i}
           />
         ))}
-        <Button variant="contained" type="submit">
+        <Button
+          variant="contained"
+          /*type="submit"*/ onClick={() => {
+            loginUser(usernameForm, passwordForm).then(
+              () => {},
+              () => {
+                setRejectedLogin(true);
+                console.debug("Wrong passes");
+              }
+            );
+          }}
+        >
           LOG IN
         </Button>
         <Button variant="text" component={Link} to="/register">
