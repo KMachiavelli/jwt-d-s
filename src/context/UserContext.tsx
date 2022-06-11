@@ -13,10 +13,10 @@ import { endpoints } from "../assets/urls";
 export interface User {
   username: string;
   email: string;
-  joined: Date;
+  joined: string;
   setUsername: Dispatch<SetStateAction<string>>;
   setEmail: Dispatch<SetStateAction<string>>;
-  setJoined: Dispatch<SetStateAction<Date>>;
+  setJoined: Dispatch<SetStateAction<string>>;
   loginUser: (...params: any) => Promise<boolean>;
   loginByToken: () => void;
   logoutUser: (navigate?: NavigateFunction) => void;
@@ -30,7 +30,7 @@ export const useUserContext = () => useContext(UserContext);
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
-  const [joined, setJoined] = useState<Date>(new Date());
+  const [joined, setJoined] = useState("");
 
   useEffect(() => {
     if (!localStorage.getItem("initialized")) {
@@ -77,7 +77,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     } else {
       setUsername("");
       setEmail("");
-      setJoined(new Date(0));
+      setJoined("");
       return Promise.reject(false);
     }
   };
@@ -97,7 +97,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const logoutUser = (navigate?: NavigateFunction) => {
     setUsername("");
     setEmail("");
-    setJoined(new Date(0));
+    setJoined("");
     localStorage.setItem("logged", "false");
     if (navigate) navigate("/");
   };
