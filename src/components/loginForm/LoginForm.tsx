@@ -81,9 +81,6 @@ const LoginForm = ({ justRegistered }: LoginFormI) => {
             key={i}
           />
         ))}
-        <Button variant="text" component={Link} to="/register">
-          REGISTER
-        </Button>
         <Button
           variant="contained"
           onClick={() => {
@@ -97,6 +94,9 @@ const LoginForm = ({ justRegistered }: LoginFormI) => {
           }}
         >
           LOG IN
+        </Button>
+        <Button variant="text" component={Link} to="/register">
+          REGISTER
         </Button>
       </StyledLoginForm>
       <RejectedTile isRejected={rejectedLogin}>

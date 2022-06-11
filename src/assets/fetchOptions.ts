@@ -9,9 +9,9 @@ const POSTReq = {
 
 const GETReq = {
   method: "GET",
-  headers: {
-    "Content-Type": "application/json",
-  },
+  // headers: {
+  //   "Content-Type": "application/json",
+  // },
 };
 
 const registerOptions = (body: any) => ({
