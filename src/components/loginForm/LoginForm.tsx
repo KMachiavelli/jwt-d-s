@@ -24,13 +24,13 @@ const LoginForm = ({ justRegistered }: LoginFormI) => {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // loginUser(usernameForm, passwordForm).then(
-    //   () => {},
-    //   () => {
-    //     setRejectedLogin(true);
-    //     console.debug("Wrong passes");
-    //   }
-    // );
+    loginUser(usernameForm, passwordForm).then(
+      () => {},
+      () => {
+        setRejectedLogin(true);
+        console.debug("Wrong passes");
+      }
+    );
   };
 
   const textFields = [
@@ -91,8 +91,12 @@ const LoginForm = ({ justRegistered }: LoginFormI) => {
         variant="contained"
         onClick={() => {
           fetch(urlDupa, {
-            method: "GET",
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
             credentials: "include",
+            body: JSON.stringify({ username: "h", password: "awdji" }),
           }).catch((e) => alert("WYJEBALO SIE " + e));
         }}
       >
