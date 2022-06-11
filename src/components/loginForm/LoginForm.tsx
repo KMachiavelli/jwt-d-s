@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { valueToPercent } from "@mui/base";
 import useFetch from "../../customHooks/useFetch";
 import { useUserContext } from "../../context/UserContext";
+import TestButton from "../../helpers/TestButton";
 
 interface LoginFormI {
   justRegistered: boolean;
@@ -19,16 +20,22 @@ const LoginForm = ({ justRegistered }: LoginFormI) => {
   const { loginUser } = useUserContext();
   const [rejectedLogin, setRejectedLogin] = useState(false);
   const { username } = useUserContext();
+  const urlDupa = "http://localhost:8000/api/dupa";
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    loginUser(usernameForm, passwordForm).then(
-      () => {},
-      () => {
-        setRejectedLogin(true);
-        console.debug("Wrong passes");
-      }
-    );
+    // loginUser(usernameForm, passwordForm).then(
+    //   () => {},
+    //   () => {
+    //     setRejectedLogin(true);
+    //     console.debug("Wrong passes");
+    //   }
+    // );
+
+    fetch(urlDupa, {
+      method: "GET",
+      credentials: "include",
+    }).catch((e) => alert("WYJEBALO SIE " + e));
   };
 
   const textFields = [
@@ -63,36 +70,32 @@ const LoginForm = ({ justRegistered }: LoginFormI) => {
           Registered! You can sign in.
         </p>
       )}
-      <AccountCircleIcon />
-      {textFields.map(({ type, placeholder, handler, autoFocus }, i) => (
-        <TextField
-          type={type}
-          placeholder={placeholder}
-          onChange={(event) => {
-            handler(event);
-          }}
-          autoFocus={autoFocus}
-          variant="standard"
-          key={i}
-        />
-      ))}
-      <Button
-        variant="contained"
-        onClick={() => {
-          loginUser(usernameForm, passwordForm).then(
-            () => {},
-            () => {
-              setRejectedLogin(true);
-              console.debug("Wrong passes");
-            }
-          );
+      <StyledLoginForm
+        onSubmit={(event) => {
+          handleSubmit(event);
         }}
       >
-        LOG IN
-      </Button>
-      <Button variant="text" component={Link} to="/register">
-        REGISTER
-      </Button>
+        <AccountCircleIcon />
+        {textFields.map(({ type, placeholder, handler, autoFocus }, i) => (
+          <TextField
+            type={type}
+            placeholder={placeholder}
+            onChange={(event) => {
+              handler(event);
+            }}
+            autoFocus={autoFocus}
+            variant="standard"
+            key={i}
+          />
+        ))}
+        <Button variant="contained" type="submit">
+          LOG IN
+        </Button>
+        <Button variant="text" component={Link} to="/register">
+          REGISTER
+        </Button>
+      </StyledLoginForm>
+      <TestButton />
       <RejectedTile isRejected={rejectedLogin}>
         Wrong login or password
       </RejectedTile>
