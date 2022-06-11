@@ -31,11 +31,6 @@ const LoginForm = ({ justRegistered }: LoginFormI) => {
     //     console.debug("Wrong passes");
     //   }
     // );
-
-    fetch(urlDupa, {
-      method: "GET",
-      credentials: "include",
-    }).catch((e) => alert("WYJEBALO SIE " + e));
   };
 
   const textFields = [
@@ -88,13 +83,21 @@ const LoginForm = ({ justRegistered }: LoginFormI) => {
             key={i}
           />
         ))}
-        <Button variant="contained" type="submit">
-          LOG IN
-        </Button>
         <Button variant="text" component={Link} to="/register">
           REGISTER
         </Button>
       </StyledLoginForm>
+      <Button
+        variant="contained"
+        onClick={() => {
+          fetch(urlDupa, {
+            method: "GET",
+            credentials: "include",
+          }).catch((e) => alert("WYJEBALO SIE " + e));
+        }}
+      >
+        LOG IN
+      </Button>
       <TestButton />
       <RejectedTile isRejected={rejectedLogin}>
         Wrong login or password
