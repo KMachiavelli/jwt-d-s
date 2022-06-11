@@ -8,7 +8,6 @@ import { Link } from "react-router-dom";
 import { valueToPercent } from "@mui/base";
 import useFetch from "../../customHooks/useFetch";
 import { useUserContext } from "../../context/UserContext";
-import TestButton from "../../helpers/TestButton";
 
 interface LoginFormI {
   justRegistered: boolean;
@@ -22,7 +21,7 @@ const LoginForm = ({ justRegistered }: LoginFormI) => {
   const { username } = useUserContext();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    // event.preventDefault();
+    event.preventDefault();
     loginUser(usernameForm, passwordForm).then(
       () => {},
       () => {
@@ -64,46 +63,39 @@ const LoginForm = ({ justRegistered }: LoginFormI) => {
           Registered! You can sign in.
         </p>
       )}
-      <StyledLoginForm
-      // onSubmit={(event) => {
-      //   handleSubmit(event);
-      // }}
-      >
-        <AccountCircleIcon />
-        {textFields.map(({ type, placeholder, handler, autoFocus }, i) => (
-          <TextField
-            type={type}
-            placeholder={placeholder}
-            onChange={(event) => {
-              handler(event);
-            }}
-            autoFocus={autoFocus}
-            variant="standard"
-            key={i}
-          />
-        ))}
-        <Button
-          variant="contained"
-          /*type="submit"*/ onClick={() => {
-            loginUser(usernameForm, passwordForm).then(
-              () => {},
-              () => {
-                setRejectedLogin(true);
-                console.debug("Wrong passes");
-              }
-            );
+      <AccountCircleIcon />
+      {textFields.map(({ type, placeholder, handler, autoFocus }, i) => (
+        <TextField
+          type={type}
+          placeholder={placeholder}
+          onChange={(event) => {
+            handler(event);
           }}
-        >
-          LOG IN
-        </Button>
-        <Button variant="text" component={Link} to="/register">
-          REGISTER
-        </Button>
-      </StyledLoginForm>
+          autoFocus={autoFocus}
+          variant="standard"
+          key={i}
+        />
+      ))}
+      <Button
+        variant="contained"
+        onClick={() => {
+          loginUser(usernameForm, passwordForm).then(
+            () => {},
+            () => {
+              setRejectedLogin(true);
+              console.debug("Wrong passes");
+            }
+          );
+        }}
+      >
+        LOG IN
+      </Button>
+      <Button variant="text" component={Link} to="/register">
+        REGISTER
+      </Button>
       <RejectedTile isRejected={rejectedLogin}>
         Wrong login or password
       </RejectedTile>
-      <TestButton />
     </>
   );
 };
