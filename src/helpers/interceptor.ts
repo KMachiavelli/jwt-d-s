@@ -8,6 +8,7 @@ export const initializeInterceptor = (logoutUser: Function) => {
       if (window.location.pathname !== "/") {
         logoutUser();
         localStorage.setItem("logged", "false");
+        window.location.reload();
         return Promise.reject();
       }
     }
