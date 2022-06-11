@@ -1,6 +1,11 @@
-import React, { Dispatch, SetStateAction, useContext, useState } from "react";
+import React, {
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { createContext } from "react";
-import { useCookies } from "react-cookie";
 import { NavigateFunction } from "react-router-dom";
 import { apiOpt } from "../assets/fetchOptions";
 import { endpoints } from "../assets/urls";
@@ -26,7 +31,13 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [joined, setJoined] = useState<Date>(new Date());
-  const [cookies, setCookies, removeCookies] = useCookies(["token"]);
+
+  useEffect(() => {
+    if (!localStorage.getItem("initialized")) {
+      localStorage.setItem("initialized", "true");
+      localStorage.setItem("logged", "false");
+    }
+  }, []);
 
   const loginUser = async (
     usernameForm: string,
@@ -42,20 +53,18 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
             ? { username: usernameForm, password: passwordForm }
             : { username: usernameForm }
         ),
-        credentials: "same-origin",
       }
     );
     const { username: usernameApi, token } = await userData.json();
 
     if (userData.ok) {
       setUsername(usernameApi);
-      setCookies("token", token, { path: "/" });
+      localStorage.setItem("logged", "true");
       return Promise.resolve(true);
     } else {
       setUsername("");
       setEmail("");
       setJoined(new Date(0));
-      removeCookies("token", { path: "/" });
       return Promise.reject(false);
     }
   };
@@ -65,7 +74,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 
     const userData = await fetch(
       process.env.REACT_APP_BACKEND_URL + endpoints.auth,
-      apiOpt.authByTokenOptions(cookies.token)
+      apiOpt.authByTokenOptions()
     );
     const { username: usernameApi, status } = await userData.json();
     if (status) {
@@ -75,11 +84,10 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const logoutUser = (navigate?: NavigateFunction) => {
-    console.debug("logging out");
     setUsername("");
     setEmail("");
     setJoined(new Date(0));
-    removeCookies("token", { path: "/" });
+    localStorage.setItem("logged", "false");
     if (navigate) navigate("/");
   };
 
@@ -87,7 +95,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     console.debug("requesting data");
     const userData = await fetch(
       process.env.REACT_APP_BACKEND_URL + endpoints.myinfo,
-      apiOpt.requestDataOptions(cookies.token)
+      apiOpt.requestDataOptions()
     );
     let user;
     if (userData.ok) {
@@ -96,7 +104,6 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
       setEmail(user.email);
       setJoined(user.joined);
     } else {
-      setCookies("token", null, { path: "/" });
     }
   };
 

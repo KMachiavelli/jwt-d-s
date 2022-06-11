@@ -2,7 +2,6 @@ import { endpoints } from "./urls";
 
 const POSTReq = {
   method: "POST",
-  credentials: "include",
   headers: {
     "Content-Type": "application/json",
   },
@@ -10,7 +9,6 @@ const POSTReq = {
 
 const GETReq = {
   method: "GET",
-  credentials: "include",
   headers: {
     "Content-Type": "application/json",
   },
@@ -18,30 +16,22 @@ const GETReq = {
 
 const registerOptions = (body: any) => ({
   ...POSTReq,
-  params: endpoints.register,
   body: JSON.stringify(body),
 });
 
 const loginOptions = (body: any) => ({
   ...POSTReq,
-  params: endpoints.login,
   body: JSON.stringify(body),
 });
 
-const authByTokenOptions = (token: string) => ({
+const authByTokenOptions = () => ({
   ...GETReq,
-  params: endpoints.auth,
-  headers: {
-    Authorization: tokenType + token,
-  },
+  credentials: "same-origin" as RequestCredentials, // same-origin/include
 });
 
-const requestDataOptions = (token: string) => ({
+const requestDataOptions = () => ({
   ...GETReq,
-  params: endpoints.myinfo,
-  headers: {
-    Authorization: tokenType + token,
-  },
+  credentials: "same-origin" as RequestCredentials, // same-origin/include
 });
 
 export const apiOpt = {

@@ -7,6 +7,10 @@ export const StyledTokenError = styled.div`
   justify-content: center;
   color: var(--orange);
 
+  h2 {
+    text-align: center;
+  }
+
   svg {
     fill: var(--orange);
     width: 100px;

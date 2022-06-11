@@ -60,7 +60,7 @@ const LoginForm = ({ justRegistered }: LoginFormI) => {
     <>
       {justRegistered && (
         <p style={{ color: "var(--blue)", textAlign: "center" }}>
-          Registered! You can now sign in.
+          Registered! You can sign in.
         </p>
       )}
       <StyledLoginForm

@@ -11,6 +11,7 @@ export const StyledLoginForm = styled.form`
   border-radius: 10px;
   box-shadow: 9px 11px 5px var(--blue-reduced);
   z-index: 1001;
+  min-width: 250px;
 
   .MuiFormControl-root {
     width: 100%;
@@ -19,6 +20,7 @@ export const StyledLoginForm = styled.form`
   svg {
     width: 30%;
     height: 30%;
+    min-width: 90px;
     fill: var(--blue);
   }
 

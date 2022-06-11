@@ -10,13 +10,11 @@ import {
   UserPanelWrapper,
 } from "./UserPanelStyles";
 import { Button, CircularProgress } from "@mui/material";
-import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 
 const UserPanel = () => {
   const navigate = useNavigate();
   const { username, email, joined, logoutUser } = useUserContext();
-  const [, , removeCookies] = useCookies(["token"]);
 
   const infoTexts = [
     {
@@ -60,12 +58,7 @@ const UserPanel = () => {
             >
               LOG OUT
             </Button>
-            <Button
-              variant="contained"
-              onClick={() => {
-                removeCookies("token", { path: "/" });
-              }}
-            >
+            <Button variant="contained" disabled>
               FORGET TOKEN
             </Button>
           </ButtonsSection>

@@ -10,6 +10,7 @@ export const StyledRegisterForm = styled.form`
   padding: 10px;
   border-radius: 10px;
   box-shadow: 9px 11px 5px var(--blue-reduced);
+  min-width: 250px;
 
   .MuiFormControl-root {
     width: 100%;
@@ -18,6 +19,7 @@ export const StyledRegisterForm = styled.form`
   svg {
     width: 30%;
     height: 30%;
+    min-width: 90px;
     fill: var(--blue);
   }
 

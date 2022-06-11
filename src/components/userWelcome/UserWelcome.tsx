@@ -7,12 +7,10 @@ import {
 } from "./UserWelcomeStyles";
 import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
 import { Button } from "@mui/material";
-import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
 
 const UserWelcome = () => {
   const { username, logoutUser } = useUserContext();
-  const [{ token }] = useCookies(["token"]);
 
   const handleLogout = () => {
     logoutUser();

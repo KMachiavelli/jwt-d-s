@@ -1,24 +1,30 @@
 import { CircularProgress } from "@mui/material";
 import React, { useEffect } from "react";
-import { useCookies } from "react-cookie";
 import TokenError from "../components/tokenError/TokenError";
 import UserPanel from "../components/userPanel/UserPanel";
 import { useUserContext } from "../context/UserContext";
 
 const MyinfoPage = () => {
   const { username, requestUserData, setUsername } = useUserContext();
-  const [{ token }] = useCookies(["token"]);
+  const logged = localStorage.getItem("logged");
 
   useEffect(() => {
-    if (token) requestUserData();
+    if (logged == "true") requestUserData();
     else {
       setUsername("");
     }
-    console.log(token);
   }, []);
   return (
     <>
-      {username ? <UserPanel /> : token ? <CircularProgress /> : <TokenError />}
+      {logged == "true" ? (
+        username ? (
+          <UserPanel />
+        ) : (
+          <CircularProgress />
+        )
+      ) : (
+        <TokenError />
+      )}
     </>
   );
 };

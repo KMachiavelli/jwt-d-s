@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const StyledUserWelcome = styled.div`
   box-sizing: border-box;
+  min-width: 250px;
 
   h1 {
     color: var(--blue);

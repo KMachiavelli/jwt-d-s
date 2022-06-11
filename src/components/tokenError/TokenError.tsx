@@ -8,7 +8,7 @@ const TokenError = () => {
   return (
     <StyledTokenError>
       <FmdBadIcon />
-      <h2>Session expired</h2>
+      <h2>Unauthorized or session expired</h2>
       <Button variant="text" component={Link} to="/">
         BACK TO LOG IN
       </Button>
